@@ -43,7 +43,7 @@ chord-time 80
 
 ;;layer
 (defalias
-dspc (multi f24 (tap-hold $tap $hold spc(layer-while-held newSymbol))
+dspc (multi f24 (tap-hold $tap $hold spc(layer-while-held newSymbol)))
 lNav (layer-while-held nav)
 )
 
