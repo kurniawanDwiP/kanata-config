@@ -90,8 +90,8 @@ chL (chord return l)
 (j      ) @rC
 (   k   ) @rS
 (      l) @rA
-(j  k   ) tab
-(   k  l) S-tab
+(j  k   ) ctrl+n
+(   k  l) ctl+p
 (j  k  l) ret
 )
 
