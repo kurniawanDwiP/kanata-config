@@ -90,8 +90,8 @@ chL (chord return l)
 (j      ) @rC
 (   k   ) @rS
 (      l) @rA
-(j  k   ) ctrl+n
-(   k  l) ctl+p
+(j  k   ) @ctrlN
+(   k  l) @ctrlP
 (j  k  l) ret
 )
 
@@ -123,4 +123,9 @@ chR (chord media r)
 (w  e  r) pp
 (w  e   ) vold
 (   e  r) volu
+)
+
+(defalias 
+ctrlN (multi lctl n)
+ctrlP (multi lctl p)
 )
