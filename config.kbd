@@ -1,53 +1,90 @@
 (defcfg
 process-unmapped-keys yes
+concurrent-tap-hold yes
 )
 
 (defsrc
-esc     1     2     3     4     5     6     7     8     9     0     -     =     bspc
-tab     q     w     e     r     t     y     u     i     o     p     [     ]     \
-caps    a     s     d     f     g     h     j     k     l     ;     '     ret
-lsft    z     x     c     v     b     n     m     ,     .     /     rsft
-lctl    lmet  lalt              spc               ralt  rmet  rctl
+esc     1       2       3       4       5       6       7       8       9       0       -       =       bspc
+tab     q       w       e       r       t       y       u       i       o       p       [       ]       \
+caps    a       s       d       f       g       h       j       k       l       ;       '       ret
+lsft    z       x       c       v       b       n       m       ,       .       /       rsft
+lctl    lmet    lalt              spc                   ralt    rmet    rctl
 )
 
 (deflayer base
-_       _       _       _       _       _       _       _       _       _       _       _       _       bspc
-_       _       @chW    @chE    @chR    _       _       _       _       _       _       _       _       _
-_       @lM     @chS    @chD    @chF    _       _       @chJ    @chK    @chL    @rM     _       ret
-_       _       _       _       _       _       _       _       _       _       _       rsft
-_       _       _                       @dspc                   ralt    rmet    rctl
-)
-
-(deflayer newSymbol
-XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX      XX      bspc
-XX      7       8       9       @s=     @s;     @s12    @s34    @s56    @s78    @sGrv    XX      XX      XX
-XX      4       5       6       @s-     @sQ     @sB     @sSB    @sCB    @sTB    bspc     XX      ret
-XX      1       2       3       0       @s.     @s/     @s\     XX      XX      XX       XX
-XX      XX      XX                      spc                     XX      XX      XX
+_       _       _       _       _       _       _       _       _       _       _        _        _      _
+_       _       _       _       _       _       _       _       _       _       _        _        _      _
+_       @lM     @chS    @chD    @chF    _       _       @chJ    @chK    @chL    @rM      _        _
+_       _       _       _       _       _       _       _       _       _       _        _
+_       _       _                       _                       _       _       _
 )
 
 (deflayer nav
-XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX      XX      bspc
-XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX      XX      XX
-XX      XX      XX      XX      XX      XX      left    down    up      right   XX       XX      ret
-XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX
-XX      XX      XX                      XX                      XX      XX      XX
+_       _       _       _       _       _       _       _       _       _       _        _        _      _
+_       _       _       _       _       _       _       _       _       _       _        _        _      _
+_       @lM     @chS    @chD    @chF    _       left    down    up      right   _        _        _
+_       _       _       _       _       _       _       _       _       _       _        _
+_       _       _                       _                       _       _       _
 )
 
+(deflayer lBracket
+XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX      XX      bspc
+XX      XX      XX      XX      XX      XX      S-9     [       S-[     S-,     grv      XX      XX      XX
+XX      XX      XX      XX      XX      XX      left    down    up      right   XX       XX      ret
+XX      XX      XX      XX      XX      .       /       \       XX      XX      XX       XX
+XX      XX      XX                      spc                     XX      XX      XX
+)
+
+(deflayer rBracket
+XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX      XX      bspc
+XX      XX      XX      XX      XX      XX      S-0     ]       S-]     S-.     S-grv    XX      XX      XX
+XX      XX      XX      XX      XX      XX      left    down    up      right   XX       XX      ret
+XX      XX      XX      XX      XX      ,       S-/     S-\     XX      XX      XX       XX
+XX      XX      XX                      spc                      XX      XX      XX
+)
+
+(deflayer sym
+XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX      XX      bspc
+XX      S-7     S-8     S-9     S--     XX      XX      XX      XX      XX      XX       XX      XX      XX
+XX      S-4     S-5     S-6     S-=     XX      XX      XX      XX      XX      XX       XX      ret
+XX      S-1     S-2     S-3     S-0     XX      XX      XX      XX      XX      XX       XX
+XX      XX      XX                      spc                     XX      XX      XX
+)
+
+(deflayer num
+XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX      XX      bspc
+XX      7       8       9       -       XX      XX      XX      XX      XX      XX       XX      XX      XX
+XX      4       5       6       =       XX      XX      XX      XX      XX      XX       XX      ret
+XX      1       2       3       0       XX      XX      XX      XX      XX      XX       XX
+XX      XX      XX                      spc                     XX      XX      XX
+)
+
+#|(deflayer inactive
+XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX      XX      XX
+XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX      XX      XX
+XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX      XX
+XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX
+XX      XX      XX                      XX                      XX      XX      XX
+)|#
+
+;;variable
 (defvar
-tap 100
+tap 50
 hold 200
-dT 180
-chord-time 80
+chord 70
 )
 
 ;;layer
-(defalias
-dspc (multi f24 (tap-hold $tap $hold spc(layer-while-held newSymbol)))
-lNav (layer-while-held nav)
+(defalias 
+lBracket (layer-while-held lBracket)
+rBracket (layer-while-held rBracket)
+sym (layer-while-held sym)
+num (layer-while-held num)
+lNav (layer-switch nav)
+lBase (layer-switch base)
 )
 
-;;homerow
+;;homerow mod
 (defalias
 lM (tap-hold $tap $hold a lmet)
 lA (tap-hold $tap $hold s lalt)
@@ -59,68 +96,50 @@ rS (tap-hold $tap $hold k lsft)
 rC (tap-hold $tap $hold j lctl)
 )
 
-;;symbol
-(defalias
-sB (tap-dance $dT (S-9 S-0))
-sSB (tap-dance $dT ([ ]))
-sCB (tap-dance $dT (S-[ S-]))
-sQ (tap-dance $dT (' S-'))
-sTB (tap-dance $dT (S-, S-.))
-sGrv (tap-dance $dT (grv S-grv))
-s12 (tap-dance $dT (S-1 S-2))
-s34 (tap-dance $dT (S-3 S-4))
-s56 (tap-dance $dT (S-5 S-6))
-s78 (tap-dance $dT (S-7 S-8))
-s. (tap-dance $dT (. ,))
-s= (tap-dance $dT (= S-=))
-s- (tap-dance $dT (- S--))
-s/ (tap-dance $dT (/ S-/))
-s\ (tap-dance $dT (\ S-\))
-s; (tap-dance $dT (; S-;))
-)
-
-;;chord return
-(defalias
-chJ (chord return j)
-chK (chord return k)
-chL (chord return l)
-)
-
-(defchords return $chord-time
-(j      ) @rC
-(   k   ) @rS
-(      l) @rA
-(j  k   ) tab
-(   k  l) S-tab
-(j  k  l) ret
-)
-
-;;chord layer
+;;chordkey
 (defalias
 chS (chord layer s)
 chD (chord layer d)
 chF (chord layer f)
+
+chJ (chord numsym j)
+chK (chord numsym k)
+chL (chord numsym l)
+
+#|navS (chord nav s)
+navD (chord nav d)
+navF (chord nav f)|#
 )
 
-(defchords layer $chord-time
+(defchords layer $chord
 (s      ) @lA
 (   d   ) @lS
 (      f) @lC
-(s  d  f) @lNav
+(s  d   ) @lBracket
+(   d  f) @rBracket
+(s  d  f) @switch-layer
 )
 
-;;chord media
-(defalias
-chW (chord media w)
-chE (chord media e)
-chR (chord media r)
+(defchords numsym $chord
+(j      ) @rC
+(   k   ) @rS
+(      l) @rA
+(j  k   ) @sym
+(   k  l) @num
+(j  k  l) ret
 )
 
-(defchords media $chord-time
-(w      ) w
-(   e   ) e
-(      r) r
-(w  e  r) pp
-(w  e   ) vold
-(   e  r) volu
+#|(defchords nav $chord
+(s      ) @lA
+(   d   ) @lS
+(      f) @lC
+(s  d  f) @lBase
+)|#
+
+;;trial layer-switch
+(defalias switch-layer 
+  (switch
+     ((layer base)) (layer-switch nav) break
+     ((layer nav)) (layer-switch base) break
+  )
 )
