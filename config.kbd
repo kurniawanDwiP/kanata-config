@@ -31,32 +31,32 @@ _       _       _                       _                       _       _       
 XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX      XX      bspc
 XX      XX      XX      XX      XX      XX      S-9     [       S-[     S-,     grv      XX      XX      XX
 XX      XX      XX      XX      XX      XX      left    down    up      right   XX       XX      ret
-XX      XX      XX      XX      XX      .       /       \       XX      XX      XX       XX
-XX      XX      XX                      spc                     XX      XX      XX
+XX      XX      XX      XX      XX      XX      /       \       XX      XX      XX       XX
+XX      XX      XX                      bspc                    XX      XX      XX
 )
 
 (deflayer rBracket
 XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX      XX      bspc
 XX      XX      XX      XX      XX      XX      S-0     ]       S-]     S-.     S-grv    XX      XX      XX
 XX      XX      XX      XX      XX      XX      left    down    up      right   XX       XX      ret
-XX      XX      XX      XX      XX      ,       S-/     S-\     XX      XX      XX       XX
-XX      XX      XX                      spc                      XX      XX      XX
+XX      XX      XX      XX      XX      XX      S-/     S-\     XX      XX      XX       XX
+XX      XX      XX                      bspc                    XX      XX      XX
 )
 
 (deflayer sym
 XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX      XX      bspc
-XX      S-7     S-8     S-9     S--     XX      XX      XX      XX      XX      XX       XX      XX      XX
-XX      S-4     S-5     S-6     S-=     XX      XX      XX      XX      XX      XX       XX      ret
-XX      S-1     S-2     S-3     S-0     XX      XX      XX      XX      XX      XX       XX
-XX      XX      XX                      spc                     XX      XX      XX
+XX      XX      S-7     S-8     S-9     S--     XX      XX      XX      XX      XX       XX      XX      XX
+XX      XX      S-4     S-5     S-6     S-=     XX      XX      XX      XX      XX       XX      ret
+XX      XX      S-1     S-2     S-3     S-0     XX      XX      XX      XX      XX       XX
+XX      XX      XX                      bspc                    XX      XX      XX
 )
 
 (deflayer num
 XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX       XX      XX      bspc
-XX      7       8       9       -       XX      XX      XX      XX      XX      XX       XX      XX      XX
-XX      4       5       6       =       XX      XX      XX      XX      XX      XX       XX      ret
-XX      1       2       3       0       XX      XX      XX      XX      XX      XX       XX
-XX      XX      XX                      spc                     XX      XX      XX
+XX      XX      7       8       9       -       XX      XX      XX      XX      XX       XX      XX      XX
+XX      XX      4       5       6       =       XX      XX      XX      XX      XX       XX      ret
+XX      XX      1       2       3       0       XX      XX      XX      XX      XX       XX
+XX      XX      XX                      bspc                    XX      XX      XX
 )
 
 #|(deflayer inactive
@@ -72,16 +72,28 @@ XX      XX      XX                      XX                      XX      XX      
 tap 50
 hold 200
 chord 70
+one-shot 2000
+tap-dance 150
 )
 
 ;;layer
 (defalias 
-lBracket (layer-while-held lBracket)
-rBracket (layer-while-held rBracket)
+;;lBracket (layer-while-held lBracket)
+;;rBracket (layer-while-held rBracket)
+lBracket (one-shot-press $one-shot (layer-while-held lBracket))
+rBracket (one-shot-press $one-shot (layer-while-held rBracket))
 sym (layer-while-held sym)
 num (layer-while-held num)
 lNav (layer-switch nav)
 lBase (layer-switch base)
+)
+
+;;tap-dance
+(defalias
+tdB (tap-dance $tap-dance (S-9 S-0))
+tdSB (tap-dance $tap-dance ([ ]))
+tdCB (tap-dance $tap-dance (S-[ S-]))
+tdTB (tap-dance $tap-dance (S-, S-.))
 )
 
 ;;homerow mod
